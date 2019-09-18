@@ -1,2 +1,2 @@
 # Cryptography
-AES Encryption using Kotlin
+AES Encryption and Decryption using Kotlin
