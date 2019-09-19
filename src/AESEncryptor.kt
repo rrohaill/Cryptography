@@ -33,8 +33,7 @@ class AESEncryptor {
                 )
                 ctLength += cipher.doFinal(cipherText, ctLength)
                 return String(
-                    Base64
-                        .encode(cipherText)
+                    Base64.encode(cipherText)
                 )
             }
         } catch (uee: UnsupportedEncodingException) {
