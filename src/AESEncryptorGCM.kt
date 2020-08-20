@@ -9,7 +9,9 @@ import javax.crypto.spec.SecretKeySpec
 
 class AESEncryptorGCM {
     fun encrypt(strToEncrypt: String, secret_key: String): String? {
+
         Security.addProvider(BouncyCastleProvider())
+
         val keyBytes: ByteArray
 
         try {
@@ -51,18 +53,20 @@ class AESEncryptorGCM {
     }
 
     fun decryptWithAES(key: String, strToDecrypt: String?): String? {
+
         Security.addProvider(BouncyCastleProvider())
+
         val keyBytes: ByteArray
 
         try {
             keyBytes = key.toByteArray(charset("UTF8"))
-            val skey = SecretKeySpec(keyBytes, "AES")
+            val secretkey = SecretKeySpec(keyBytes, "AES")
             val input = org.bouncycastle.util.encoders.Base64
                     .decode(strToDecrypt?.trim { it <= ' ' }?.toByteArray(charset("UTF8")))
 
             synchronized(Cipher::class.java) {
                 val cipher = Cipher.getInstance("AES/GCM/NoPadding", "BC")
-                cipher.init(Cipher.DECRYPT_MODE, skey)
+                cipher.init(Cipher.DECRYPT_MODE, secretkey)
 
                 val plainText = ByteArray(cipher.getOutputSize(input.size))
                 var ptLength = cipher.update(input, 0, input.size, plainText, 0)
